@@ -9,10 +9,11 @@ namespace JaProj
 {
     class Program
     {
-        [DllImport(@"C:\Users\pawel\source\repos\StudyPrograms\Asembler\JaProj\x64\Debug\JAAsm.dll")]
+        [DllImport(@"C:\Users\pawel\source\repos\AddNoiseProject\JaProj\x64\Debug\JAAsm.dll")]
         static extern int MyProc1(int a, int b);
         static void Main(string[] args)
         {
+            
             int x = 5, y = 3;
             int retVal = MyProc1(x, y);
             Console.Write("Moja pierwsza wartość obliczona w asm to:");

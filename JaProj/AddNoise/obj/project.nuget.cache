@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Y44rHAaV1VlrbnZYDas/Zx09RXt+DGCknT1JckEQYSsGSxA9siJ4+3ahvEhEUMb5WrbzyTdLx9EyTdAfCP82og==",
+  "dgSpecHash": "8/TkeayrMnz10QjvYUlEk5pbTbI3bW5iKDRKbm2m2Vh2GHnk6+OM29nqOQPozD5FbDgDdQWhGR5EJycbuCnyGg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\pawel\\source\\repos\\StudyPrograms\\Asembler\\JaProj\\AddNoise\\AddNoise.csproj",
+  "projectFilePath": "C:\\Users\\pawel\\source\\repos\\AddNoiseProject\\JaProj\\AddNoise\\AddNoise.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
