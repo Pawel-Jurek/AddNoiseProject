@@ -1,0 +1,8 @@
+C:\Users\pawel\source\repos\StudyPrograms\Asembler\JaProj\JaProj\bin\x64\Debug\JaProj.exe.config
+C:\Users\pawel\source\repos\StudyPrograms\Asembler\JaProj\JaProj\bin\x64\Debug\JaProj.exe
+C:\Users\pawel\source\repos\StudyPrograms\Asembler\JaProj\JaProj\bin\x64\Debug\JaProj.pdb
+C:\Users\pawel\source\repos\StudyPrograms\Asembler\JaProj\JaProj\obj\x64\Debug\JaProj.csproj.AssemblyReference.cache
+C:\Users\pawel\source\repos\StudyPrograms\Asembler\JaProj\JaProj\obj\x64\Debug\JaProj.csproj.SuggestedBindingRedirects.cache
+C:\Users\pawel\source\repos\StudyPrograms\Asembler\JaProj\JaProj\obj\x64\Debug\JaProj.csproj.CoreCompileInputs.cache
+C:\Users\pawel\source\repos\StudyPrograms\Asembler\JaProj\JaProj\obj\x64\Debug\JaProj.exe
+C:\Users\pawel\source\repos\StudyPrograms\Asembler\JaProj\JaProj\obj\x64\Debug\JaProj.pdb
