@@ -3,9 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AddNoise"
+        xmlns:local="clr-namespace:AddNoise" xmlns:local1="clr-namespace:AddNoise.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="590" Width="704">
+        Title="MainWindow" Height="590" Width="704"
+        d:DataContext="{d:DesignInstance local1:MainWindowViewModel, IsDesignTimeCreatable=True}">
     <Grid ShowGridLines="True" VerticalAlignment="Top" Height="564">
         <Grid.ColumnDefinitions>
         <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -48,7 +49,7 @@
                         <Button Content="Save" Height="35" FontSize="17" Background="DarkSeaGreen"/>
                     </Border>
                     <Border Grid.Column="1" BorderBrush="DarkGreen" Margin="2, 2, 0, 0" BorderThickness="2" Background="DarkSeaGreen">
-                        <Button Content="Select" Margin="1 0 0 0" Height="35" FontSize="17" Background="DarkSeaGreen"/>
+                        <Button Content="Select" Margin="1 0 0 0" Height="35" FontSize="17" Background="DarkSeaGreen" Command="{Binding SelectImage}"/>
                     </Border>
                 </Grid>
                 <Border Grid.Column="1" BorderBrush="DarkGreen" Margin="0, 2, 0, 0" BorderThickness="2" Background="DarkSeaGreen">

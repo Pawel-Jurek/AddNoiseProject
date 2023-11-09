@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AddNoise.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,10 @@ namespace AddNoise
         public MainWindow()
         {
             InitializeComponent();
+            var mainWindow = new MainWindowViewModel();
+            mainWindow.InitializeCommands();
+            DataContext = mainWindow;
         }
+
     }
 }

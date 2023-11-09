@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "8/TkeayrMnz10QjvYUlEk5pbTbI3bW5iKDRKbm2m2Vh2GHnk6+OM29nqOQPozD5FbDgDdQWhGR5EJycbuCnyGg==",
+  "dgSpecHash": "MagCY7tnQ5t1v3sqxGeo35xnRxYkPqnw8sR/vfi83cyxMLN3lg/u06s5PeplM0Ifvd3WJz1PjlYr3wDVZ409IA==",
   "success": true,
   "projectFilePath": "C:\\Users\\pawel\\source\\repos\\AddNoiseProject\\JaProj\\AddNoise\\AddNoise.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\pawel\\.nuget\\packages\\communitytoolkit.mvvm\\7.1.2\\communitytoolkit.mvvm.7.1.2.nupkg.sha512",
+    "C:\\Users\\pawel\\.nuget\\packages\\happystudio.mvvm.input.wpf\\1.0.1\\happystudio.mvvm.input.wpf.1.0.1.nupkg.sha512"
+  ],
   "logs": []
 }
