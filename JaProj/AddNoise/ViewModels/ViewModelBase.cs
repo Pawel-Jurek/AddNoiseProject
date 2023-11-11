@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace AddNoise.ViewModels
 {
-    public class ViewModelBase
+    public class ViewModelBase : INotifyPropertyChanged
     {
-        public bool ThrowOnInvalidPropertyName { get; private set; }
+        public bool ThrowOnInvalidPropertyName { get; private set; } = true;
 
         // In ViewModelBase.cs 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -34,7 +34,7 @@
             <StackPanel>
                 <TextBlock Text="Number of threads:" FontSize="20" VerticalAlignment="Center" />
                 <TextBlock Text="{Binding ElementName=ThreadsSlider, Path=Value}" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-5" />
-                <Slider x:Name="ThreadsSlider" Minimum="1" Maximum="8" VerticalAlignment="Center" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding NumberOfThreads}" />
+                <Slider x:Name="ThreadsSlider" Minimum="1" Maximum="8" VerticalAlignment="Center" TickFrequency="1" IsSnapToTickEnabled="True" />
                 <Border BorderBrush="DarkGreen" BorderThickness="2" Margin="0 20 0 0" Background="White">
                     <Button Content="Measure time" 
                     Height="35" FontSize="17" Background="DarkSeaGreen"/>
@@ -49,7 +49,7 @@
                         <Button Content="Save" Height="35" FontSize="17" Background="DarkSeaGreen"/>
                     </Border>
                     <Border Grid.Column="1" BorderBrush="DarkGreen" Margin="2, 2, 0, 0" BorderThickness="2" Background="DarkSeaGreen">
-                        <Button Content="Select" Margin="1 0 0 0" Height="35" FontSize="17" Background="DarkSeaGreen" Command="{Binding SelectImage}"/>
+                        <Button Content="Select" Margin="1 0 0 0" Height="35" FontSize="17" Background="DarkSeaGreen" Command="{Binding selectImage}"/>
                     </Border>
                 </Grid>
                 <Border Grid.Column="1" BorderBrush="DarkGreen" Margin="0, 2, 0, 0" BorderThickness="2" Background="DarkSeaGreen">
@@ -60,16 +60,16 @@
                     <StackPanel>
                         <TextBlock Text="Last generation time:" FontSize="20" VerticalAlignment="Center" Margin="0 0 0 5"/>
                         <TextBlock FontSize="30" HorizontalAlignment="Center" Margin="0 -12 0 -3">
-                            <TextBlock.Text>
-                                <MultiBinding StringFormat="{}{0:d2}s {1:d3}ms">
-                                    <Binding Path="ComputationTime.Seconds" />
-                                    <Binding Path="ComputationTime.Milliseconds" />
-                                </MultiBinding>
-                            </TextBlock.Text>
                         </TextBlock>
                     </StackPanel>
                 </Border>
             </StackPanel>
         </StackPanel>
+        <Image Source="{Binding imageSource}" 
+           Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" 
+           HorizontalAlignment="Center" VerticalAlignment="Center"
+           Margin="20"/>
+
+
     </Grid>
 </Window>

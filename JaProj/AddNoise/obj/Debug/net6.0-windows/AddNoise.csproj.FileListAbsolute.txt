@@ -22,3 +22,7 @@ C:\Users\pawel\source\repos\AddNoiseProject\JaProj\AddNoise\obj\Debug\net6.0-win
 C:\Users\pawel\source\repos\AddNoiseProject\JaProj\AddNoise\bin\Debug\net6.0-windows\CommunityToolkit.Mvvm.dll
 C:\Users\pawel\source\repos\AddNoiseProject\JaProj\AddNoise\bin\Debug\net6.0-windows\HappyStudio.Mvvm.Input.Wpf.dll
 C:\Users\pawel\source\repos\AddNoiseProject\JaProj\AddNoise\obj\Debug\net6.0-windows\AddNoise.csproj.CopyComplete
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\AddNoise\bin\Debug\net6.0-windows\Microsoft.Win32.SystemEvents.dll
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\AddNoise\bin\Debug\net6.0-windows\System.Drawing.Common.dll
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\AddNoise\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\AddNoise\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Drawing.Common.dll

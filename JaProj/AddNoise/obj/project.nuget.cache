@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "MagCY7tnQ5t1v3sqxGeo35xnRxYkPqnw8sR/vfi83cyxMLN3lg/u06s5PeplM0Ifvd3WJz1PjlYr3wDVZ409IA==",
+  "dgSpecHash": "St8+SjCUwhIP2WnfWAlV1NtoxkPEfb3O4NY4z8eC7cm2GJnoH45vdEnYvkV7YYK5jQ2ZAJy55+JnQt7OGIIx7A==",
   "success": true,
   "projectFilePath": "C:\\Users\\pawel\\source\\repos\\AddNoiseProject\\JaProj\\AddNoise\\AddNoise.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pawel\\.nuget\\packages\\communitytoolkit.mvvm\\7.1.2\\communitytoolkit.mvvm.7.1.2.nupkg.sha512",
-    "C:\\Users\\pawel\\.nuget\\packages\\happystudio.mvvm.input.wpf\\1.0.1\\happystudio.mvvm.input.wpf.1.0.1.nupkg.sha512"
+    "C:\\Users\\pawel\\.nuget\\packages\\happystudio.mvvm.input.wpf\\1.0.1\\happystudio.mvvm.input.wpf.1.0.1.nupkg.sha512",
+    "C:\\Users\\pawel\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
+    "C:\\Users\\pawel\\.nuget\\packages\\system.drawing.common\\7.0.0\\system.drawing.common.7.0.0.nupkg.sha512"
   ],
   "logs": []
 }
