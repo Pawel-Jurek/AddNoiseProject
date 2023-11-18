@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.IO;
+using System.Threading;
 
 namespace AddNoise.Models
 {
@@ -31,5 +32,67 @@ namespace AddNoise.Models
                 }
             }
         }
+        public void addNoiseToImage(bool selectedAssembler, int numberOfThreads)
+        {
+
+            List<DivideThread> threadSettings = divideImageForThreads(numberOfThreads);
+            List<Thread> threads = new List<Thread>();
+
+            foreach (DivideThread settings in threadSettings)
+            {
+                if (selectedAssembler)
+                {
+                    //threads.Add(new Thread(() =>
+                        
+                    //));
+                }
+                else
+                {
+                    //threads.Add(new Thread(() =>
+
+                    //));
+                }
+            }
+
+            foreach (Thread thread in threads)
+            {
+                thread.Start();
+            }
+            foreach (Thread thread in threads)
+            {
+                thread.Join();
+            }
+            
+        }
+        private List<DivideThread> divideImageForThreads(int numberOfThreads)
+        {
+            List<DivideThread> threads = new List<DivideThread>();
+            int colsToDivide = bitmap.Width;
+            int colsPerThread = colsToDivide / numberOfThreads;
+            int extraCols = colsToDivide % numberOfThreads;
+
+            int currentCol = 0;
+            for (int i = 0; i < numberOfThreads; i++)
+            {
+                DivideThread tempThread = new DivideThread
+                {
+                    processId = i,
+                    imgWidth = bitmap.Width,
+                    imgHeight = bitmap.Height,
+                    imgColStart = currentCol
+                };
+
+                int colsForThisThread = colsPerThread + (i < extraCols ? 1 : 0);
+
+                currentCol += colsForThisThread;
+                tempThread.imgColStop = currentCol;
+
+                threads.Add(tempThread);
+            }
+
+            return threads;
+        }
     }
+
+    
 }
