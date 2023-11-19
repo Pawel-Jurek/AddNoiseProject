@@ -62,7 +62,10 @@ namespace AddNoise.Models
             {
                 thread.Join();
             }
-            
+            savePixelRGBsToBitmap();
+            SaveBitmapToBitArray();
+
+
         }
         private List<DivideThread> divideImageForThreads(int numberOfThreads)
         {
@@ -91,6 +94,29 @@ namespace AddNoise.Models
             }
 
             return threads;
+        }
+        private void savePixelRGBsToBitmap()
+        {
+            for (int x = 0; x < bitmap.Width; x++)
+            {
+                for (int y = 0; y < bitmap.Height; y++)
+                {
+                    Color noisedImg = Color.FromArgb(pixelRGBs[x, y, 0], pixelRGBs[x, y, 1], pixelRGBs[x, y, 2]);
+                    bitmap.SetPixel(x, y, noisedImg);
+                }
+            }
+        }
+
+        private void SaveBitmapToBitArray()
+        {
+            using (var ms = new MemoryStream())
+            {
+                bitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
+                ms.Position = 0;
+                for (int i = 0; i < finalImage.Length; i++)
+                    finalImage[i] = (byte)ms.ReadByte();
+
+            }
         }
     }
 

@@ -22,19 +22,19 @@
         <StackPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"  Margin="20 0 0 0" >
             <StackPanel Margin="0 0 0 10">
                 <TextBlock Text="Noise type:" FontSize="20" VerticalAlignment="Center" Margin="0 0 0 5"/>
-                <RadioButton Content="Random noise" FontSize="15" Margin="20 0 0 0"/>
-                <RadioButton Content="White noise" FontSize="15" Margin="20 0 0 0"/>
-                <RadioButton Content="Color noise" FontSize="15" Margin="20 0 0 0"/>
+                <RadioButton Content="Random noise" FontSize="15" Margin="20 0 0 0" IsChecked="{Binding selectedRandomNoise}"/>
+                <RadioButton Content="White noise" FontSize="15" Margin="20 0 0 0" IsChecked="{Binding selectedWhiteNoise}"/>
+                <RadioButton Content="Color noise" FontSize="15" Margin="20 0 0 0" IsChecked="{Binding selectedColorNoise}"/>
             </StackPanel>
             <StackPanel Margin="0 0 0 10">
                 <TextBlock Text="Generating library:" FontSize="20" VerticalAlignment="Center" Margin="0 0 0 5"/>
-                <RadioButton Content="Assembly" FontSize="15" Margin="20 0 0 0"/>
-                <RadioButton Content="C#" FontSize="15" Margin="20 0 0 0"/>
+                <RadioButton Content="Assembly" FontSize="15" Margin="20 0 0 0" IsChecked="{Binding selectedAssembler}"/>
+                <RadioButton Content="C#" FontSize="15" Margin="20 0 0 0" IsChecked="{Binding selectedCSharp}"/>
             </StackPanel>
             <StackPanel>
                 <TextBlock Text="Number of threads:" FontSize="20" VerticalAlignment="Center" />
                 <TextBlock Text="{Binding ElementName=ThreadsSlider, Path=Value}" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-5" />
-                <Slider x:Name="ThreadsSlider" Minimum="1" Maximum="8" VerticalAlignment="Center" TickFrequency="1" IsSnapToTickEnabled="True" />
+                <Slider x:Name="ThreadsSlider" Minimum="1" Maximum="8" VerticalAlignment="Center" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding threadsNumber}"/>
                 <Border BorderBrush="DarkGreen" BorderThickness="2" Margin="0 20 0 0" Background="White">
                     <Button Content="Measure time" 
                     Height="35" FontSize="17" Background="DarkSeaGreen"/>
@@ -54,7 +54,7 @@
                 </Grid>
                 <Border Grid.Column="1" BorderBrush="DarkGreen" Margin="0, 2, 0, 0" BorderThickness="2" Background="DarkSeaGreen">
                     <Button Content="Add choosen noise" 
-                    Height="35" FontSize="17" Background="DarkSeaGreen" Margin="0 2 0 2"/>
+                    Height="35" FontSize="17" Background="DarkSeaGreen" Margin="0 2 0 2" Command="{Binding addNoiseCommand}"/>
                 </Border>
                 <Border BorderBrush="DarkGreen" BorderThickness="3" Margin="0 10 0 10" Padding="5" Background="White">
                     <StackPanel>
@@ -65,7 +65,7 @@
                 </Border>
             </StackPanel>
         </StackPanel>
-        <Image Source="{Binding imageSource}" 
+        <Image Source="{Binding image}" 
            Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" 
            HorizontalAlignment="Center" VerticalAlignment="Center"
            Margin="20"/>

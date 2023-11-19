@@ -26,6 +26,7 @@ namespace AddNoise
             InitializeComponent();
             var mainWindow = new MainWindowViewModel();
             mainWindow.InitializeCommands();
+            mainWindow.InitializeProperties();
             DataContext = mainWindow;
         }
 
