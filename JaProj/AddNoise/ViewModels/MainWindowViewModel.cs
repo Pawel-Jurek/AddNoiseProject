@@ -161,7 +161,8 @@ namespace AddNoise.ViewModels
                     MessageBox.Show("Select an image first!");
                     return;
                 }
-                noiseAdding.addNoiseToImage(selectedAssembler, threadsNumber);
+                string option = selectedColorNoise ? "color" : selectedRandomNoise ? "random" : "white";
+                noiseAdding.addNoiseToImage(selectedAssembler, option, threadsNumber);
                 image = noiseAdding.finalImage;
             });
         }

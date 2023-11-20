@@ -32,25 +32,35 @@ namespace AddNoise.Models
                 }
             }
         }
-        public void addNoiseToImage(bool selectedAssembler, int numberOfThreads)
+        public void addNoiseToImage(bool selectedAssembler, string selectedNoise, int numberOfThreads)
         {
 
-            List<DivideThread> threadSettings = divideImageForThreads(numberOfThreads);
+            List<DivideThread> threadParams = divideImageForThreads(numberOfThreads, selectedNoise);
             List<Thread> threads = new List<Thread>();
 
-            foreach (DivideThread settings in threadSettings)
+            foreach (DivideThread thread in threadParams)
             {
                 if (selectedAssembler)
                 {
-                    //threads.Add(new Thread(() =>
-                        
-                    //));
+                    switch (selectedNoise)
+                    {
+                        case "random":
+                        case "white":
+                        case "color":
+                        default: break;
+                    }                  
                 }
                 else
                 {
-                    //threads.Add(new Thread(() =>
-
-                    //));
+                    switch (selectedNoise)
+                    {
+                        case "random":
+                            threads.Add(new Thread(() =>addRandomNoiseInCSharp(thread.pixelsCoordinates)));
+                            break;
+                        case "white":
+                        case "color":
+                        default: break;
+                    }
                 }
             }
 
@@ -67,32 +77,35 @@ namespace AddNoise.Models
 
 
         }
-        private List<DivideThread> divideImageForThreads(int numberOfThreads)
+        private List<DivideThread> divideImageForThreads(int numberOfThreads, string noiseType)
         {
             List<DivideThread> threads = new List<DivideThread>();
-            int colsToDivide = bitmap.Width;
-            int colsPerThread = colsToDivide / numberOfThreads;
-            int extraCols = colsToDivide % numberOfThreads;
+            Random random = new Random();
+            int totalPixels = bitmap.Width * bitmap.Height;
+            int pixelsToNoise = 0;
+            if (noiseType == "random")
+            {
+                pixelsToNoise = (int)(0.01 * (random.Next(5,70)) * totalPixels);
+            }
+            int pixelsPerThread = pixelsToNoise / numberOfThreads;
+            int extraPixels = pixelsToNoise % numberOfThreads;
 
-            int currentCol = 0;
             for (int i = 0; i < numberOfThreads; i++)
             {
                 DivideThread tempThread = new DivideThread
                 {
                     processId = i,
-                    imgWidth = bitmap.Width,
-                    imgHeight = bitmap.Height,
-                    imgColStart = currentCol
+                    pixelsCoordinates = new List<KeyValuePair<int, int>>()
                 };
-
-                int colsForThisThread = colsPerThread + (i < extraCols ? 1 : 0);
-
-                currentCol += colsForThisThread;
-                tempThread.imgColStop = currentCol;
-
+                int pixelsForThisThread = pixelsPerThread + (i < extraPixels ? 1 : 0);
+                for (int j = 0; j < pixelsForThisThread; j++)
+                {
+                    tempThread.pixelsCoordinates.Add(new KeyValuePair<int, int>(random.Next(bitmap.Width), random.Next(bitmap.Height)));
+                }
+    
                 threads.Add(tempThread);
-            }
 
+            }
             return threads;
         }
         private void savePixelRGBsToBitmap()
@@ -118,7 +131,24 @@ namespace AddNoise.Models
 
             }
         }
+        public void addRandomNoiseInCSharp(List<KeyValuePair<int, int>> listOfCoordinates)
+        {          
+            Random random = new Random();
+
+            foreach (KeyValuePair<int,int> coordinates in listOfCoordinates)
+            {
+                byte newRed = (byte)random.Next(256);
+                byte newGreen = (byte)random.Next(256);
+                byte newBlue = (byte)random.Next(256);
+
+                pixelRGBs[coordinates.Key, coordinates.Value, 0] = newRed;
+                pixelRGBs[coordinates.Key, coordinates.Value, 1] = newGreen;
+                pixelRGBs[coordinates.Key, coordinates.Value, 2] = newBlue;
+            }
+        }
+
     }
 
+    
     
 }

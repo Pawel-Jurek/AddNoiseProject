@@ -9,9 +9,6 @@ namespace AddNoise.Models
     class DivideThread
     {
         public int processId;
-        public int imgColStart;
-        public int imgColStop;
-        public int imgWidth;
-        public int imgHeight;
+        public List<KeyValuePair<int, int>>? pixelsCoordinates;
     }
 }
