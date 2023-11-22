@@ -20,6 +20,7 @@ namespace AddNoise.Models
             originalImage = File.ReadAllBytes(filename);
             finalImage = new byte[originalImage.Length];
             bitmap = new Bitmap(filename, true);
+
             pixelRGBs = new byte[bitmap.Width, bitmap.Height, 3];
             for (int x = 0; x < bitmap.Width; x++)
             {
@@ -32,6 +33,7 @@ namespace AddNoise.Models
                 }
             }
         }
+
         public void addNoiseToImage(bool selectedAssembler, string selectedNoise, int numberOfThreads)
         {
 
@@ -58,6 +60,8 @@ namespace AddNoise.Models
                             threads.Add(new Thread(() =>addRandomNoiseInCSharp(thread.pixelsCoordinates)));
                             break;
                         case "white":
+                            threads.Add(new Thread(() => addWhiteNoiseInCSharp(thread.pixelsCoordinates)));
+                            break;
                         case "color":
                         default: break;
                     }
@@ -72,6 +76,7 @@ namespace AddNoise.Models
             {
                 thread.Join();
             }
+
             savePixelRGBsToBitmap();
             SaveBitmapToBitArray();
 
@@ -82,7 +87,7 @@ namespace AddNoise.Models
             List<DivideThread> threads = new List<DivideThread>();
             Random random = new Random();
             int totalPixels = bitmap.Width * bitmap.Height;
-            int pixelsToNoise = 0;
+            int pixelsToNoise = (int)(0.5 * totalPixels);
             if (noiseType == "random")
             {
                 pixelsToNoise = (int)(0.01 * (random.Next(5,70)) * totalPixels);
@@ -147,8 +152,27 @@ namespace AddNoise.Models
             }
         }
 
+        public void addWhiteNoiseInCSharp(List<KeyValuePair<int, int>> pixelsCoordinates)
+        {
+            Random random = new Random();
+
+            foreach (KeyValuePair<int, int> coordinates in pixelsCoordinates)
+            {
+                double u1 = 1.0 - random.NextDouble();
+                double u2 = 1.0 - random.NextDouble();
+                double z0 = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Cos(2.0 * Math.PI * u2);
+
+                for (int i = 0; i < 3; i++)
+                {
+                    double noise = 10 * z0; 
+                    int newValue = (int)(pixelRGBs[coordinates.Key, coordinates.Value, i] + noise);
+
+                    newValue = Math.Max(0, Math.Min(255, newValue));
+                    pixelRGBs[coordinates.Key, coordinates.Value, i] = (byte)newValue;
+                }
+            }
+        }
+
     }
 
-    
-    
 }

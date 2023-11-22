@@ -31,7 +31,7 @@ namespace AddNoise.ViewModels
             InitializeSelectImage();
             InitializeNoiseAdding();
         }
-
+        private String fileName;
 
         public byte[]? image
         {
@@ -136,7 +136,7 @@ namespace AddNoise.ViewModels
 
                 if (wasOKButtonClicked == true)
                 {
-                    string fileName = dlg.FileName;
+                    fileName = dlg.FileName;
                     Debug.WriteLine("Button clicked. Selected file: " + fileName);
                     noiseAdding = new NoiseAdding(fileName);
                     image = noiseAdding.originalImage;
@@ -162,6 +162,7 @@ namespace AddNoise.ViewModels
                     return;
                 }
                 string option = selectedColorNoise ? "color" : selectedRandomNoise ? "random" : "white";
+                noiseAdding = new NoiseAdding(fileName);
                 noiseAdding.addNoiseToImage(selectedAssembler, option, threadsNumber);
                 image = noiseAdding.finalImage;
             });
