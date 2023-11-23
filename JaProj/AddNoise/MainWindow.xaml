@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AddNoise" xmlns:local1="clr-namespace:AddNoise.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="590" Width="704"
+        Title="MainWindow" Height="670" Width="700"
         d:DataContext="{d:DesignInstance local1:MainWindowViewModel, IsDesignTimeCreatable=True}">
     <Grid ShowGridLines="True" VerticalAlignment="Top" Height="564">
         <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="3*"></ColumnDefinition>
-        <ColumnDefinition Width="2*"></ColumnDefinition>
-        <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"></RowDefinition>
@@ -19,21 +19,27 @@
             <RowDefinition Height="4*"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Text="Add noise to the image" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="35"></TextBlock>
-        <StackPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"  Margin="20 0 0 0" >
+        <StackPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"  Margin="20,0,201,-56" Grid.ColumnSpan="2" >
             <StackPanel Margin="0 0 0 10">
-                <TextBlock Text="Noise type:" FontSize="20" VerticalAlignment="Center" Margin="0 0 0 5"/>
+                <TextBlock Text="Noise type:" FontSize="20" Margin="0 0 0 5" Height="35"/>
                 <RadioButton Content="Random noise" FontSize="15" Margin="20 0 0 0" IsChecked="{Binding selectedRandomNoise}"/>
                 <RadioButton Content="White noise" FontSize="15" Margin="20 0 0 0" IsChecked="{Binding selectedWhiteNoise}"/>
                 <RadioButton Content="Color noise" FontSize="15" Margin="20 0 0 0" IsChecked="{Binding selectedColorNoise}"/>
+            </StackPanel>
+            <StackPanel Margin="0 0 0 10">
+                <TextBlock Text="Noise Power:" FontSize="20" VerticalAlignment="Center" />
+                <TextBlock Text="{Binding Value, ElementName=NoisePowerSlider}" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-5" />
+                <Slider x:Name="NoisePowerSlider" Minimum="1" Maximum="100" VerticalAlignment="Center" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding noisePower}"/>
             </StackPanel>
             <StackPanel Margin="0 0 0 10">
                 <TextBlock Text="Generating library:" FontSize="20" VerticalAlignment="Center" Margin="0 0 0 5"/>
                 <RadioButton Content="Assembly" FontSize="15" Margin="20 0 0 0" IsChecked="{Binding selectedAssembler}"/>
                 <RadioButton Content="C#" FontSize="15" Margin="20 0 0 0" IsChecked="{Binding selectedCSharp}"/>
             </StackPanel>
-            <StackPanel>
+            
+            <StackPanel Height="330">
                 <TextBlock Text="Number of threads:" FontSize="20" VerticalAlignment="Center" />
-                <TextBlock Text="{Binding ElementName=ThreadsSlider, Path=Value}" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-5" />
+                <TextBlock Text="{Binding Value, ElementName=ThreadsSlider}" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-5" />
                 <Slider x:Name="ThreadsSlider" Minimum="1" Maximum="8" VerticalAlignment="Center" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding threadsNumber}"/>
                 <Border BorderBrush="DarkGreen" BorderThickness="2" Margin="0 20 0 0" Background="White">
                     <Button Content="Measure time" 
@@ -56,11 +62,10 @@
                     <Button Content="Add choosen noise" 
                     Height="35" FontSize="17" Background="DarkSeaGreen" Margin="0 2 0 2" Command="{Binding addNoiseCommand}"/>
                 </Border>
-                <Border BorderBrush="DarkGreen" BorderThickness="3" Margin="0 10 0 10" Padding="5" Background="White">
+                <Border BorderBrush="DarkGreen" BorderThickness="3" Margin="0 10 0 10" Padding="5" Background="White" Height="53">
                     <StackPanel>
                         <TextBlock Text="Last generation time:" FontSize="20" VerticalAlignment="Center" Margin="0 0 0 5"/>
-                        <TextBlock FontSize="30" HorizontalAlignment="Center" Margin="0 -12 0 -3">
-                        </TextBlock>
+                        <TextBlock FontSize="30" HorizontalAlignment="Center" Margin="0 -12 0 -3"/>
                     </StackPanel>
                 </Border>
             </StackPanel>

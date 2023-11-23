@@ -34,10 +34,10 @@ namespace AddNoise.Models
             }
         }
 
-        public void addNoiseToImage(bool selectedAssembler, string selectedNoise, int numberOfThreads)
+        public void addNoiseToImage(bool selectedAssembler, string selectedNoise, int numberOfThreads, int noisePower)
         {
 
-            List<DivideThread> threadParams = divideImageForThreads(numberOfThreads, selectedNoise);
+            List<DivideThread> threadParams = divideImageForThreads(numberOfThreads, selectedNoise, noisePower);
             List<Thread> threads = new List<Thread>();
 
             foreach (DivideThread thread in threadParams)
@@ -60,7 +60,7 @@ namespace AddNoise.Models
                             threads.Add(new Thread(() =>addRandomNoiseInCSharp(thread.pixelsCoordinates)));
                             break;
                         case "white":
-                            threads.Add(new Thread(() => addWhiteNoiseInCSharp(thread.pixelsCoordinates)));
+                            threads.Add(new Thread(() => addWhiteNoiseInCSharp(thread.pixelsCoordinates, noisePower)));
                             break;
                         case "color":
                         default: break;
@@ -82,15 +82,19 @@ namespace AddNoise.Models
 
 
         }
-        private List<DivideThread> divideImageForThreads(int numberOfThreads, string noiseType)
+        private List<DivideThread> divideImageForThreads(int numberOfThreads, string noiseType, int noisePower)
         {
             List<DivideThread> threads = new List<DivideThread>();
             Random random = new Random();
             int totalPixels = bitmap.Width * bitmap.Height;
-            int pixelsToNoise = (int)(0.5 * totalPixels);
+            int pixelsToNoise;  
             if (noiseType == "random")
             {
                 pixelsToNoise = (int)(0.01 * (random.Next(5,70)) * totalPixels);
+            } 
+            else
+            {
+                pixelsToNoise = (int)(noisePower * totalPixels / 100);
             }
             int pixelsPerThread = pixelsToNoise / numberOfThreads;
             int extraPixels = pixelsToNoise % numberOfThreads;
@@ -152,7 +156,7 @@ namespace AddNoise.Models
             }
         }
 
-        public void addWhiteNoiseInCSharp(List<KeyValuePair<int, int>> pixelsCoordinates)
+        public void addWhiteNoiseInCSharp(List<KeyValuePair<int, int>> pixelsCoordinates, int noisePower)
         {
             Random random = new Random();
 
@@ -164,7 +168,7 @@ namespace AddNoise.Models
 
                 for (int i = 0; i < 3; i++)
                 {
-                    double noise = 10 * z0; 
+                    double noise = noisePower * z0; 
                     int newValue = (int)(pixelRGBs[coordinates.Key, coordinates.Value, i] + noise);
 
                     newValue = Math.Max(0, Math.Min(255, newValue));

@@ -57,6 +57,17 @@ namespace AddNoise.ViewModels
         }
         private int _threadsNumber;
 
+        public int noisePower
+        {
+            get { return _noisePower; }
+            set
+            {
+                if (value.Equals(_noisePower)) return;
+                _noisePower = value;
+            }
+        }
+        private int _noisePower;
+
         public NoiseAdding noiseAdding
         {
             get { return _noiseAdding; }
@@ -151,6 +162,7 @@ namespace AddNoise.ViewModels
             threadsNumber = 2;
             selectedRandomNoise = true;
             selectedAssembler = true;
+            noisePower = 30;
         }
         private void InitializeNoiseAdding()
         {
@@ -163,7 +175,7 @@ namespace AddNoise.ViewModels
                 }
                 string option = selectedColorNoise ? "color" : selectedRandomNoise ? "random" : "white";
                 noiseAdding = new NoiseAdding(fileName);
-                noiseAdding.addNoiseToImage(selectedAssembler, option, threadsNumber);
+                noiseAdding.addNoiseToImage(selectedAssembler, option, threadsNumber, noisePower);
                 image = noiseAdding.finalImage;
             });
         }
