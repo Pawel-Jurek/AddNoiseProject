@@ -63,6 +63,8 @@ namespace AddNoise.Models
                             threads.Add(new Thread(() => addWhiteNoiseInCSharp(thread.pixelsCoordinates, noisePower)));
                             break;
                         case "color":
+                            threads.Add(new Thread(() => addColorNoiseInCSharp(thread.pixelsCoordinates, noisePower)));
+                            break;
                         default: break;
                     }
                 }
@@ -176,6 +178,32 @@ namespace AddNoise.Models
                 }
             }
         }
+
+        public void addColorNoiseInCSharp(List<KeyValuePair<int, int>> pixelsCoordinates, int noisePower)
+        {
+            Random random = new Random();
+
+            foreach (KeyValuePair<int, int> coordinates in pixelsCoordinates)
+            {
+                double[] z = new double[3];
+                for (int i = 0; i < 3; i++)
+                {
+                    double u1 = 1.0 - random.NextDouble();
+                    double u2 = 1.0 - random.NextDouble();
+                    z[i] = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Cos(2.0 * Math.PI * u2);
+                }
+
+                for (int i = 0; i < 3; i++)
+                {
+                    double noise = noisePower * z[i];
+                    int newValue = (int)(pixelRGBs[coordinates.Key, coordinates.Value, i] + noise);
+
+                    newValue = Math.Max(0, Math.Min(255, newValue));
+                    pixelRGBs[coordinates.Key, coordinates.Value, i] = (byte)newValue;
+                }
+            }
+        }
+
 
     }
 
