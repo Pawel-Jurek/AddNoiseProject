@@ -132,7 +132,20 @@ namespace AddNoise.ViewModels
                 _selectedCSharp = value;
             }
         }
+
         private bool _selectedCSharp;
+
+        public TimeSpan computationTime
+        {
+            get { return _computationTime; }
+            set
+            {
+                if (value.Equals(_computationTime)) return;
+                _computationTime = value;
+                OnPropertyChanged("computationTime");
+            }
+        }
+        private TimeSpan _computationTime;
 
         private void InitializeSelectImage()
         {
@@ -175,7 +188,8 @@ namespace AddNoise.ViewModels
                 }
                 string option = selectedColorNoise ? "color" : selectedRandomNoise ? "random" : "white";
                 noiseAdding = new NoiseAdding(fileName);
-                noiseAdding.addNoiseToImage(selectedAssembler, option, threadsNumber, noisePower);
+                int miliseconds = noiseAdding.addNoiseToImage(selectedAssembler, option, threadsNumber, noisePower);
+                computationTime = TimeSpan.FromMilliseconds(miliseconds);
                 image = noiseAdding.finalImage;
             });
         }

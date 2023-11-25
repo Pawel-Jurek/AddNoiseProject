@@ -62,10 +62,17 @@
                     <Button Content="Add choosen noise" 
                     Height="35" FontSize="17" Background="DarkSeaGreen" Margin="0 2 0 2" Command="{Binding addNoiseCommand}"/>
                 </Border>
-                <Border BorderBrush="DarkGreen" BorderThickness="3" Margin="0 10 0 10" Padding="5" Background="White" Height="53">
+                <Border BorderBrush="DarkGreen" BorderThickness="3" Margin="0 10 0 10" Padding="5" Background="White" Height="58">
                     <StackPanel>
-                        <TextBlock Text="Last generation time:" FontSize="20" VerticalAlignment="Center" Margin="0 0 0 5"/>
-                        <TextBlock FontSize="30" HorizontalAlignment="Center" Margin="0 -12 0 -3"/>
+                        <TextBlock Text="Last generation time:" FontSize="10" VerticalAlignment="Center" Margin="0 0 0 5"/>
+                        <TextBlock FontSize="30" HorizontalAlignment="Center" Margin="0 -12 0 -3">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0:d2}s {1:d3}ms">
+                                    <Binding Path="computationTime.Seconds" />
+                                    <Binding Path="computationTime.Milliseconds" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </StackPanel>
                 </Border>
             </StackPanel>

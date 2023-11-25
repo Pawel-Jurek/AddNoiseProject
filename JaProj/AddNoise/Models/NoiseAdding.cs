@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.IO;
 using System.Threading;
+using System.Timers;
+using System.Diagnostics;
 
 namespace AddNoise.Models
 {
@@ -34,9 +36,10 @@ namespace AddNoise.Models
             }
         }
 
-        public void addNoiseToImage(bool selectedAssembler, string selectedNoise, int numberOfThreads, int noisePower)
+        public int addNoiseToImage(bool selectedAssembler, string selectedNoise, int numberOfThreads, int noisePower)
         {
-
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             List<DivideThread> threadParams = divideImageForThreads(numberOfThreads, selectedNoise, noisePower);
             List<Thread> threads = new List<Thread>();
 
@@ -79,9 +82,13 @@ namespace AddNoise.Models
                 thread.Join();
             }
 
+
+            stopwatch.Stop();
+            long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
+
             savePixelRGBsToBitmap();
             SaveBitmapToBitArray();
-
+            return (int)elapsedMilliseconds;
 
         }
         private List<DivideThread> divideImageForThreads(int numberOfThreads, string noiseType, int noisePower)
