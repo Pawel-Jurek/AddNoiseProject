@@ -8,6 +8,7 @@ using System.IO;
 using System.Threading;
 using System.Timers;
 using System.Diagnostics;
+using System.Windows;
 
 namespace AddNoise.Models
 {
@@ -87,7 +88,7 @@ namespace AddNoise.Models
             long elapsedMilliseconds = stopwatch.ElapsedMilliseconds;
 
             savePixelRGBsToBitmap();
-            SaveBitmapToBitArray();
+            saveBitmapToBitArray();
             return (int)elapsedMilliseconds;
 
         }
@@ -138,7 +139,7 @@ namespace AddNoise.Models
             }
         }
 
-        private void SaveBitmapToBitArray()
+        private void saveBitmapToBitArray()
         {
             using (var ms = new MemoryStream())
             {
@@ -149,6 +150,7 @@ namespace AddNoise.Models
 
             }
         }
+        
         public void addRandomNoiseInCSharp(List<KeyValuePair<int, int>> listOfCoordinates)
         {          
             Random random = new Random();

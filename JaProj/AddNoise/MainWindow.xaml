@@ -52,7 +52,7 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Border BorderBrush="DarkGreen" Margin="0, 2, 2, 0" BorderThickness="2" Background="White">
-                        <Button Content="Save" Height="35" FontSize="17" Background="DarkSeaGreen"/>
+                        <Button Content="Save" Height="35" FontSize="17" Background="DarkSeaGreen" Command="{Binding saveImageCommand}"/>
                     </Border>
                     <Border Grid.Column="1" BorderBrush="DarkGreen" Margin="2, 2, 0, 0" BorderThickness="2" Background="DarkSeaGreen">
                         <Button Content="Select" Margin="1 0 0 0" Height="35" FontSize="17" Background="DarkSeaGreen" Command="{Binding selectImage}"/>

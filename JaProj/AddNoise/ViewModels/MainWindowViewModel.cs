@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using AddNoise.Models;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
+using System.IO;
 
 namespace AddNoise.ViewModels
 {
@@ -26,10 +27,12 @@ namespace AddNoise.ViewModels
 
         public RelayCommand selectImage { get; private set; }
         public RelayCommand addNoiseCommand { get;private set; }
+        public RelayCommand saveImageCommand { get; private set; }
         public void InitializeCommands()
         {
             InitializeSelectImage();
             InitializeNoiseAdding();
+            InitializeSaveImageCommand();
         }
         private String fileName;
 
@@ -193,6 +196,50 @@ namespace AddNoise.ViewModels
                 image = noiseAdding.finalImage;
             });
         }
+        private void InitializeSaveImageCommand()
+        {
+            saveImageCommand = new RelayCommand(() =>
+            {
+                string projectDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
+                // Przejście do katalogu nadrzędnego projektu
+                DirectoryInfo parentDirectory = Directory.GetParent(projectDirectory);
+                string projectParentDirectory = parentDirectory?.Parent?.Parent?.Parent?.Parent?.FullName;
+
+                if (projectParentDirectory != null)
+                {
+                    string outputDirectory = Path.Combine(projectParentDirectory, "outputs");
+
+                    // Utwórz katalog "outputts" w katalogu nadrzędnym projektu, jeśli nie istnieje
+                    Directory.CreateDirectory(outputDirectory);
+
+                    string fileExtension = ".bmp";
+                    string option = (selectedColorNoise ? "color" : selectedRandomNoise ? "random" : "white") + "Noise";
+
+                    string[] existingFiles = Directory.GetFiles(outputDirectory, option + "Image*" + fileExtension);
+
+                    string newFileName = Path.Combine(outputDirectory, $"{option}Image{existingFiles.Length + 1}.bmp");
+
+                    saveImage(newFileName);
+                }
+                else
+                {
+                    Console.WriteLine("Unable to access the parent directory of the project.");
+                }
+            });
+
+        }
+        private void saveImage(string path)
+        {
+            try
+            {
+                File.WriteAllBytes(path, image);
+                MessageBox.Show("Saved file in the current location.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }
