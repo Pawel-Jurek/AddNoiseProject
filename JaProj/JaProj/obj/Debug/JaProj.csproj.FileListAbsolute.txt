@@ -1,0 +1,11 @@
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\JaProj\bin\Debug\JaProj.exe.config
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\JaProj\bin\Debug\JaProj.exe
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\JaProj\bin\Debug\JaProj.pdb
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\JaProj\bin\Debug\System.Drawing.Common.dll
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\JaProj\bin\Debug\System.Drawing.Common.xml
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\JaProj\obj\Debug\JaProj.csproj.AssemblyReference.cache
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\JaProj\obj\Debug\JaProj.csproj.SuggestedBindingRedirects.cache
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\JaProj\obj\Debug\JaProj.csproj.CoreCompileInputs.cache
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\JaProj\obj\Debug\JaProj.csproj.CopyComplete
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\JaProj\obj\Debug\JaProj.exe
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\JaProj\obj\Debug\JaProj.pdb

@@ -1,0 +1,11 @@
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\JaProj\bin\Release\JaProj.exe.config
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\JaProj\bin\Release\JaProj.exe
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\JaProj\bin\Release\JaProj.pdb
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\JaProj\bin\Release\System.Drawing.Common.dll
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\JaProj\bin\Release\System.Drawing.Common.xml
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\JaProj\obj\Release\JaProj.csproj.AssemblyReference.cache
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\JaProj\obj\Release\JaProj.csproj.SuggestedBindingRedirects.cache
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\JaProj\obj\Release\JaProj.csproj.CoreCompileInputs.cache
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\JaProj\obj\Release\JaProj.csproj.CopyComplete
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\JaProj\obj\Release\JaProj.exe
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\JaProj\obj\Release\JaProj.pdb

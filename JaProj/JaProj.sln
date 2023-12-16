@@ -10,7 +10,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JaProj", "JaProj\JaProj.csp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JAAsm", "JAAsm\JAAsm.vcxproj", "{C298C62F-6F33-4473-BA0E-EED44096C3CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddNoise", "AddNoise\AddNoise.csproj", "{DD17F8C8-93AB-41A7-89B1-67E3A75CB2AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddNoise", "AddNoise\AddNoise.csproj", "{DD17F8C8-93AB-41A7-89B1-67E3A75CB2AD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C298C62F-6F33-4473-BA0E-EED44096C3CE} = {C298C62F-6F33-4473-BA0E-EED44096C3CE}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "AddNoise": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}
