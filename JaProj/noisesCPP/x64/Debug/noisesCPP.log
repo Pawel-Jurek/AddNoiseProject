@@ -1,2 +1,0 @@
-﻿  dllmain.cpp
-C:\Users\pawel\source\repos\AddNoiseProject\JaProj\noisesCPP\dllmain.cpp(77,1): fatal  error C1010: Nieoczekiwany koniec pliku podczas wyszukiwania prekompilowanego pliku nagłówkowego. Czy zapomniano dodać „#include "stdafx.h"” do źródła?
