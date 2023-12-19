@@ -9,6 +9,7 @@ namespace AddNoise.Models
     class DivideThread
     {
         public int processId;
-        public List<KeyValuePair<int, int>>? pixelsCoordinates;
+        public int[] xCoordinates;
+        public int[] yCoordinates;
     }
 }

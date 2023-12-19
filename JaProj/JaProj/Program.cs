@@ -14,8 +14,31 @@ namespace JaProj
     {
         [DllImport(@"C:\Users\pawel\source\repos\AddNoiseProject\JaProj\x64\Debug\JAAsm.dll", CallingConvention = CallingConvention.StdCall)]
         public static extern void randomNoiseAsm(byte[] pixelRGBs, byte[] data, int[] lenWidthHeight, int[] coordinatesArray);
+        [DllImport(@"C:\Users\pawel\source\repos\AddNoiseProject\JaProj\x64\Debug\cppDLL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void addRandomNoiseInCSharp(byte[] pixelRGBs, int width, int height, int[] x, int[] y, int count);
         static void Main(string[] args)
         {
+            byte[] pixelRGBs = new byte[12];
+            foreach (var pixel in pixelRGBs){
+                Console.Write(pixel+ ", ");
+            }
+            Console.WriteLine();
+            int[] xCoordinates = new int[] { 1, 0, 0 };
+            int[] yCoordinates = new int[] { 1, 1, 1 };
+            int width = 2;
+            int height = 2;
+            int count = xCoordinates.Length;
+
+            addRandomNoiseInCSharp(pixelRGBs, width, height, xCoordinates, yCoordinates, count);
+
+            
+            foreach (var pixel in pixelRGBs)
+            {
+                Console.Write(pixel + ", ");
+            }
+            Console.WriteLine();
+            Console.ReadLine();
+            /*
             Random random = new Random();
             int width = 5;
             int height = 5;
@@ -99,6 +122,7 @@ namespace JaProj
             Console.WriteLine("Counter = " + counter);
             
             Console.ReadLine();
+            */
         }
 
 

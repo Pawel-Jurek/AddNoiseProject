@@ -34,13 +34,13 @@
             <StackPanel Margin="0 0 0 10">
                 <TextBlock Text="Generating library:" FontSize="20" VerticalAlignment="Center" Margin="0 0 0 5"/>
                 <RadioButton Content="Assembly" FontSize="15" Margin="20 0 0 0" IsChecked="{Binding selectedAssembler}"/>
-                <RadioButton Content="C#" FontSize="15" Margin="20 0 0 0" IsChecked="{Binding selectedCSharp}"/>
+                <RadioButton Content="C++" FontSize="15" Margin="20 0 0 0" IsChecked="{Binding selectedCSharp}"/>
             </StackPanel>
             
             <StackPanel Height="330">
                 <TextBlock Text="Number of threads:" FontSize="20" VerticalAlignment="Center" />
                 <TextBlock Text="{Binding Value, ElementName=ThreadsSlider}" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-5" />
-                <Slider x:Name="ThreadsSlider" Minimum="1" Maximum="8" VerticalAlignment="Center" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding threadsNumber}"/>
+                <Slider x:Name="ThreadsSlider" Minimum="1" Maximum="64" VerticalAlignment="Center" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding threadsNumber}"/>
                 <Border BorderBrush="DarkGreen" BorderThickness="2" Margin="0 20 0 0" Background="White">
                     <Button Content="Measure time" 
                     Height="35" FontSize="17" Background="DarkSeaGreen"/>

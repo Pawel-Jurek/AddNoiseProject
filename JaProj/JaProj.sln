@@ -5,6 +5,7 @@ VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JaProj", "JaProj\JaProj.csproj", "{997C6629-2A77-422B-918C-FEEF23E41E35}"
 	ProjectSection(ProjectDependencies) = postProject
+		{5F2532DC-4529-4A03-BF14-AB82A484F988} = {5F2532DC-4529-4A03-BF14-AB82A484F988}
 		{C298C62F-6F33-4473-BA0E-EED44096C3CE} = {C298C62F-6F33-4473-BA0E-EED44096C3CE}
 	EndProjectSection
 EndProject
@@ -12,8 +13,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "JAAsm", "JAAsm\JAAsm.vcxpro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddNoise", "AddNoise\AddNoise.csproj", "{DD17F8C8-93AB-41A7-89B1-67E3A75CB2AD}"
 	ProjectSection(ProjectDependencies) = postProject
+		{5F2532DC-4529-4A03-BF14-AB82A484F988} = {5F2532DC-4529-4A03-BF14-AB82A484F988}
 		{C298C62F-6F33-4473-BA0E-EED44096C3CE} = {C298C62F-6F33-4473-BA0E-EED44096C3CE}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cppDLL", "cppDLL\cppDLL.vcxproj", "{5F2532DC-4529-4A03-BF14-AB82A484F988}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +65,18 @@ Global
 		{DD17F8C8-93AB-41A7-89B1-67E3A75CB2AD}.Release|x64.Build.0 = Release|Any CPU
 		{DD17F8C8-93AB-41A7-89B1-67E3A75CB2AD}.Release|x86.ActiveCfg = Release|Any CPU
 		{DD17F8C8-93AB-41A7-89B1-67E3A75CB2AD}.Release|x86.Build.0 = Release|Any CPU
+		{5F2532DC-4529-4A03-BF14-AB82A484F988}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{5F2532DC-4529-4A03-BF14-AB82A484F988}.Debug|Any CPU.Build.0 = Debug|x64
+		{5F2532DC-4529-4A03-BF14-AB82A484F988}.Debug|x64.ActiveCfg = Debug|x64
+		{5F2532DC-4529-4A03-BF14-AB82A484F988}.Debug|x64.Build.0 = Debug|x64
+		{5F2532DC-4529-4A03-BF14-AB82A484F988}.Debug|x86.ActiveCfg = Debug|Win32
+		{5F2532DC-4529-4A03-BF14-AB82A484F988}.Debug|x86.Build.0 = Debug|Win32
+		{5F2532DC-4529-4A03-BF14-AB82A484F988}.Release|Any CPU.ActiveCfg = Release|x64
+		{5F2532DC-4529-4A03-BF14-AB82A484F988}.Release|Any CPU.Build.0 = Release|x64
+		{5F2532DC-4529-4A03-BF14-AB82A484F988}.Release|x64.ActiveCfg = Release|x64
+		{5F2532DC-4529-4A03-BF14-AB82A484F988}.Release|x64.Build.0 = Release|x64
+		{5F2532DC-4529-4A03-BF14-AB82A484F988}.Release|x86.ActiveCfg = Release|Win32
+		{5F2532DC-4529-4A03-BF14-AB82A484F988}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

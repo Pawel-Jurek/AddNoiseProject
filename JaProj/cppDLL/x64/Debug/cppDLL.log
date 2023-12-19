@@ -1,0 +1,9 @@
+﻿  dllmain.cpp
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\cppDLL\dllmain.cpp(1): warning C4603: _USE_MATH_DEFINES: makro jest niezdefiniowane lub definicja różni się po użyciu prekompilowanego nagłówka
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\cppDLL\dllmain.cpp(1): message : Dodaj makro do prekompilowanego nagłówka, zamiast definiować go w tym miejscu
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\cppDLL\dllmain.cpp(2,1): message : użyj prekompilowanego nagłówka
+LINK : warning LNK4044: nierozpoznana opcja „/Zc:twoPhase-”; zignorowano
+  dllmain.obj : napotkano moduł MSIL; konsolidowanie przyrostowe jest wyłączone dla modułów MSIL; zostanie wykonana pełna konsolidacja
+LINK : warning LNK4044: nierozpoznana opcja "/Zc:twoPhase-"; zignorowano
+     Trwa tworzenie biblioteki C:\Users\pawel\source\repos\AddNoiseProject\JaProj\x64\Debug\cppDLL.lib i obiektu C:\Users\pawel\source\repos\AddNoiseProject\JaProj\x64\Debug\cppDLL.exp
+  cppDLL.vcxproj -> C:\Users\pawel\source\repos\AddNoiseProject\JaProj\x64\Debug\cppDLL.dll
