@@ -14,6 +14,7 @@ using AddNoise.Models;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
 using System.IO;
+using Microsoft.VisualBasic.FileIO;
 
 namespace AddNoise.ViewModels
 {
@@ -28,11 +29,13 @@ namespace AddNoise.ViewModels
         public RelayCommand selectImage { get; private set; }
         public RelayCommand addNoiseCommand { get;private set; }
         public RelayCommand saveImageCommand { get; private set; }
+        public RelayCommand TestCommand { get; private set; }
         public void InitializeCommands()
         {
             InitializeSelectImage();
             InitializeNoiseAdding();
             InitializeSaveImageCommand();
+            InitializeTestCommand();
         }
         private String fileName;
 
@@ -135,8 +138,25 @@ namespace AddNoise.ViewModels
                 _selectedCSharp = value;
             }
         }
-
         private bool _selectedCSharp;
+
+        public bool isButtonEnabled
+        {
+            get { return _isButtonEnabled; }
+            set
+            {
+                if (value != _isButtonEnabled)
+                {
+                    _isButtonEnabled = value;
+                    OnPropertyChanged("isButtonEnabled");
+                }
+            }
+        }
+        private bool _isButtonEnabled;
+
+        
+
+        
 
         public TimeSpan computationTime
         {
@@ -175,10 +195,11 @@ namespace AddNoise.ViewModels
         }
         public void InitializeProperties()
         {
-            threadsNumber = 2;
+            threadsNumber = System.Environment.ProcessorCount;
             selectedRandomNoise = true;
             selectedAssembler = true;
             noisePower = 30;
+            isButtonEnabled = true;
         }
         private void InitializeNoiseAdding()
         {
@@ -189,11 +210,13 @@ namespace AddNoise.ViewModels
                     MessageBox.Show("Select an image first!");
                     return;
                 }
+                isButtonEnabled = false;
                 string option = selectedColorNoise ? "color" : selectedRandomNoise ? "random" : "white";
                 noiseAdding = new NoiseAdding(fileName);
                 int miliseconds = noiseAdding.addNoiseToImage(selectedAssembler, option, threadsNumber, noisePower);
                 computationTime = TimeSpan.FromMilliseconds(miliseconds);
                 image = noiseAdding.finalImage;
+                isButtonEnabled = true;
             });
         }
         private void InitializeSaveImageCommand()
@@ -210,7 +233,6 @@ namespace AddNoise.ViewModels
                 {
                     string outputDirectory = Path.Combine(projectParentDirectory, "outputs");
 
-                    // Utwórz katalog "outputts" w katalogu nadrzędnym projektu, jeśli nie istnieje
                     Directory.CreateDirectory(outputDirectory);
 
                     string fileExtension = ".bmp";
@@ -240,6 +262,61 @@ namespace AddNoise.ViewModels
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void InitializeTestCommand()
+        {
+            TestCommand = new RelayCommand( async () =>
+            {
+                if (image == null)
+                {
+                    MessageBox.Show("Select an image first!");
+                    return;
+                }
+                List<int> threadCounts = new List<int>() { 1, 2, 4, 8, 16, 32, 64 };
+                List<bool> usingAsmLib = new List<bool>() { true, false };
+
+                isButtonEnabled = false;
+                string option = selectedColorNoise ? "color" : selectedRandomNoise ? "random" : "white";
+                noiseAdding = new NoiseAdding(fileName);
+                await Task.Run(() => noiseAdding.addNoiseToImage(true, option, 1, noisePower));
+                await Task.Delay(1000);
+                await Task.Run(() => noiseAdding.addNoiseToImage(false, option, 1, noisePower));
+
+                List<TestResult> testResults = new List<TestResult>();
+                try
+                {
+                    foreach (int threadCountUsed in threadCounts)
+                    {
+                        foreach (bool isAsm in usingAsmLib)
+                        {
+
+                            int milisecondsEstimated = await Task.Run(() => noiseAdding.addNoiseToImage(isAsm, option, threadsNumber, noisePower));
+
+                            testResults.Add(new TestResult()
+                            {
+                                isAssemblerLibraryActive = isAsm,
+                                miliseconds = milisecondsEstimated,
+                                threadCount = threadCountUsed
+                            });
+                        }
+                    }
+                } catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+                
+                string result = "";
+                foreach (TestResult testResult in testResults)
+                {
+                    string library = testResult.isAssemblerLibraryActive
+                        ? "assembly"
+                        : "C++";
+                    result += $"{testResult.threadCount} threads, generated in {testResult.miliseconds} ms using the {library} library. \r\n";
+                }
+                isButtonEnabled = true;
+                MessageBox.Show(result);
+            });
         }
     }
 }
