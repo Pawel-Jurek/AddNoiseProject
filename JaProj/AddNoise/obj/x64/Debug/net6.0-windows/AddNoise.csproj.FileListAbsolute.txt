@@ -26,3 +26,5 @@ C:\Users\pawel\source\repos\AddNoiseProject\JaProj\AddNoise\obj\x64\Debug\net6.0
 C:\Users\pawel\source\repos\AddNoiseProject\JaProj\AddNoise\obj\x64\Debug\net6.0-windows\AddNoise.pdb
 C:\Users\pawel\source\repos\AddNoiseProject\JaProj\AddNoise\obj\x64\Debug\net6.0-windows\AddNoise.genruntimeconfig.cache
 C:\Users\pawel\source\repos\AddNoiseProject\JaProj\AddNoise\obj\x64\Debug\net6.0-windows\ref\AddNoise.dll
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\AddNoise\obj\x64\Debug\net6.0-windows\AddNoise.Properties.Resources.resources
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\AddNoise\obj\x64\Debug\net6.0-windows\AddNoise.csproj.GenerateResource.cache

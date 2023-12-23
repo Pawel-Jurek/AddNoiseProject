@@ -253,6 +253,11 @@ namespace AddNoise.ViewModels
         }
         private void saveImage(string path)
         {
+            if (image == null)
+            {
+                MessageBox.Show("Select an image first!");
+                return;
+            }
             try
             {
                 File.WriteAllBytes(path, image);

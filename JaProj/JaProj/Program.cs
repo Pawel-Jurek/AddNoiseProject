@@ -13,46 +13,22 @@ namespace JaProj
     class Program
     {
         [DllImport(@"C:\Users\pawel\source\repos\AddNoiseProject\JaProj\x64\Debug\JAAsm.dll", CallingConvention = CallingConvention.StdCall)]
+        public static extern void whiteNoiseAsm();
+        [DllImport(@"C:\Users\pawel\source\repos\AddNoiseProject\JaProj\x64\Debug\JAAsm.dll", CallingConvention = CallingConvention.StdCall)]
         public static extern void randomNoiseAsm(byte[] pixelRGBs, byte[] data, int[] lenWidthHeight, int[] coordinatesArray);
-        [DllImport(@"C:\Users\pawel\source\repos\AddNoiseProject\JaProj\x64\Debug\cppDLL.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void addRandomNoiseInCSharp(byte[] pixelRGBs, int width, int height, int[] x, int[] y, int count);
+
         static void Main(string[] args)
         {
-            byte[] pixelRGBs = new byte[12];
-            foreach (var pixel in pixelRGBs){
-                Console.Write(pixel+ ", ");
-            }
-            Console.WriteLine();
-            int[] xCoordinates = new int[] { 1, 0, 0 };
-            int[] yCoordinates = new int[] { 1, 1, 1 };
-            int width = 2;
-            int height = 2;
-            int count = xCoordinates.Length;
-
-            addRandomNoiseInCSharp(pixelRGBs, width, height, xCoordinates, yCoordinates, count);
-
-            
-            foreach (var pixel in pixelRGBs)
-            {
-                Console.Write(pixel + ", ");
-            }
-            Console.WriteLine();
-            Console.ReadLine();
-            /*
             Random random = new Random();
             int width = 5;
             int height = 5;
             byte[] pixelRGBs = new byte[width* height* 3];
             byte[] testPixelRGBs = new byte[width * height * 3];
-            List<KeyValuePair<int, int>> listOfCoordinates = new List<KeyValuePair<int, int>>();
+            int[] xCoordinates = new int[] { 1, 0, 1, 0 };
+            int[] yCoordinates = new int[] { 1, 1, 0, 0 };
 
-            listOfCoordinates.Add(new KeyValuePair<int, int>(0, 1));
-            listOfCoordinates.Add(new KeyValuePair<int, int>(2, 1));
-            listOfCoordinates.Add(new KeyValuePair<int, int>(3, 3));
-            listOfCoordinates.Add(new KeyValuePair<int, int>(4, 2));
 
-            
-            int values = listOfCoordinates.Count * 3;
+            int values = yCoordinates.Length * 3;
             byte[] data = new byte[values];
 
             for (int i = 0; i < values; i++)
@@ -62,8 +38,9 @@ namespace JaProj
             }
 
             Console.WriteLine();
+            Console.WriteLine();
 
-            int[] coordinatesArray = new int[listOfCoordinates.Count * 2];
+            int[] coordinatesArray = new int[yCoordinates.Length * 2];
             int ctr = 0;
             int c = 0;
 
@@ -73,25 +50,19 @@ namespace JaProj
                 testPixelRGBs[i] = 1;
             }
 
-            foreach (KeyValuePair<int, int> coordinates in listOfCoordinates)
+            for (int i = 0; i< xCoordinates.Length; i++)
             {
-                coordinatesArray[c++] = coordinates.Key;
-                coordinatesArray[c++] = coordinates.Value;
-                testPixelRGBs[(coordinates.Value * width + coordinates.Key)*3] = data[ctr++];
-                testPixelRGBs[(coordinates.Value * width + coordinates.Key)*3+1] = data[ctr++];
-                testPixelRGBs[(coordinates.Value * width + coordinates.Key)*3+2] = data[ctr++];
+                coordinatesArray[c++] = xCoordinates[i];
+                coordinatesArray[c++] = yCoordinates[i];
+                int index = (yCoordinates[i] * width + xCoordinates[i]) * 3;
+                testPixelRGBs[index] = data[ctr++];
+                testPixelRGBs[index+1] = data[ctr++];
+                testPixelRGBs[index+2] = data[ctr++];
             }
 
 
             int[] dimensions = {data.Length, width, height };
             randomNoiseAsm(pixelRGBs, data, dimensions, coordinatesArray);
-      
-            foreach(var coords in listOfCoordinates)
-            {
-                Console.WriteLine($"pixelRGBs[{coords.Key}, {coords.Value}, 0] = {pixelRGBs[(coords.Value * width + coords.Key) * 3]}");
-                Console.WriteLine($"pixelRGBs[{coords.Key}, {coords.Value}, 1] = {pixelRGBs[(coords.Value * width + coords.Key) * 3 + 1]}");
-                Console.WriteLine($"pixelRGBs[{coords.Key}, {coords.Value}, 2] = {pixelRGBs[(coords.Value * width + coords.Key) * 3 + 2]}");
-            }
 
             for (int i = 0; i < height; i++)
             {
@@ -122,7 +93,7 @@ namespace JaProj
             Console.WriteLine("Counter = " + counter);
             
             Console.ReadLine();
-            */
+            
         }
 
 
