@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
-using AddNoise.Converters;
 using System.Windows.Media.Imaging;
 using AddNoise.Models;
 using CommunityToolkit.Mvvm.Input;
@@ -154,10 +153,6 @@ namespace AddNoise.ViewModels
         }
         private bool _isButtonEnabled;
 
-        
-
-        
-
         public TimeSpan computationTime
         {
             get { return _computationTime; }
@@ -187,9 +182,7 @@ namespace AddNoise.ViewModels
                     Debug.WriteLine("Button clicked. Selected file: " + fileName);
                     noiseAdding = new NoiseAdding(fileName);
                     image = noiseAdding.originalImage;
-                    //var converter = new ByteArrayToImageConverter();
 
-                    //imageSource = (BitmapImage)converter.Convert(noiseAdding.originalImage, typeof(BitmapImage), null, CultureInfo.CurrentCulture);
                 }
             });
         }

@@ -1,3 +1,4 @@
 LIBRARY JAAsm 
 EXPORTS whiteNoiseAsm
 EXPORTS randomNoiseAsm
+EXPORTS main

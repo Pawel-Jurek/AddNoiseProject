@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <MASM Include="randomNoise.asm" />
+    <MASM Include="testing.asm" />
     <MASM Include="whiteNoise.asm" />
   </ItemGroup>
   <ItemGroup>

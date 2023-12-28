@@ -10,6 +10,7 @@ using System.Timers;
 using System.Diagnostics;
 using System.Windows;
 using System.Runtime.InteropServices;
+using System.Reflection;
 
 namespace AddNoise.Models
 {
@@ -17,6 +18,8 @@ namespace AddNoise.Models
     {
         [DllImport(@"C:\Users\pawel\source\repos\AddNoiseProject\JaProj\x64\Debug\JAAsm.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void randomNoiseAsm(byte[] pixelRGBs, byte[] data, int[] lenWidthHeight, int[] coordinatesArray);
+        [DllImport(@"C:\Users\pawel\source\repos\AddNoiseProject\JaProj\x64\Debug\JAAsm.dll", CallingConvention = CallingConvention.StdCall)]
+        public static extern void whiteNoiseAsm(float[] u, float[] rgb, int noisePower);
 
         [DllImport(@"C:\Users\pawel\source\repos\AddNoiseProject\JaProj\x64\Debug\cppDLL.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void addRandomNoiseInCpp(byte[] pixelRGBs, int width, int height, int[] x, int[] y, int count);
@@ -30,20 +33,22 @@ namespace AddNoise.Models
         public byte[] originalImage { get; private set; }
         public byte[] finalImage { get; private set; }
         public byte[] pixelRGBs { get; private set; }
+        private int bitmapWidth;
         private Bitmap bitmap;
         public NoiseAdding(string filename) 
         {
             originalImage = File.ReadAllBytes(filename);
             finalImage = new byte[originalImage.Length];
             bitmap = new Bitmap(filename, true);
+            bitmapWidth = bitmap.Width;
 
-            pixelRGBs = new byte[bitmap.Width * bitmap.Height * 3];
-            for (int x = 0; x < bitmap.Width; x++)
+            pixelRGBs = new byte[bitmapWidth * bitmap.Height * 3];
+            for (int x = 0; x < bitmapWidth; x++)
             {
                 for (int y = 0; y < bitmap.Height; y++)
                 {
                     Color pixelColor = bitmap.GetPixel(x, y);
-                    int index = (y * bitmap.Width + x) * 3;
+                    int index = (y * bitmapWidth + x) * 3;
 
                     pixelRGBs[index] = pixelColor.R;
                     pixelRGBs[index + 1] = pixelColor.G;
@@ -69,6 +74,8 @@ namespace AddNoise.Models
                             threads.Add(new Thread(() => addRandomNoiseInAssembler(thread.xCoordinates, thread.yCoordinates)));
                             break;
                         case "white":
+                            threads.Add(new Thread(() => addWhiteNoiseInAssembler(thread.xCoordinates, thread.yCoordinates, noisePower)));
+                            break;
                         case "color":
                         default: break;
                     }                  
@@ -83,13 +90,13 @@ namespace AddNoise.Models
                     {
                         
                         case "random":
-                            threads.Add(new Thread(() =>addRandomNoiseInCpp(pixelRGBs, bitmap.Width, bitmap.Height, thread.xCoordinates, thread.yCoordinates, coordinatesCount)));
+                            threads.Add(new Thread(() =>addRandomNoiseInCpp(pixelRGBs, bitmapWidth, bitmap.Height, thread.xCoordinates, thread.yCoordinates, coordinatesCount)));
                             break;
                         case "white":
-                            threads.Add(new Thread(() => addWhiteNoiseInCpp(thread.xCoordinates, thread.yCoordinates, noisePower, pixelRGBs, bitmap.Width, coordinatesCount)));
+                            threads.Add(new Thread(() => addWhiteNoiseInCpp(thread.xCoordinates, thread.yCoordinates, noisePower, pixelRGBs, bitmapWidth, coordinatesCount)));
                             break;
                         case "color":
-                            threads.Add(new Thread(() => addColorNoiseInCpp(thread.xCoordinates, thread.yCoordinates, noisePower, pixelRGBs, bitmap.Width, coordinatesCount)));
+                            threads.Add(new Thread(() => addColorNoiseInCpp(thread.xCoordinates, thread.yCoordinates, noisePower, pixelRGBs, bitmapWidth, coordinatesCount)));
                             break;
                         default: break;
                     }
@@ -121,7 +128,7 @@ namespace AddNoise.Models
         {
             List<DivideThread> threads = new List<DivideThread>();
             Random random = new Random();
-            int totalPixels = bitmap.Width * bitmap.Height;
+            int totalPixels = bitmapWidth * bitmap.Height;
             int pixelsToNoise;  
             if (noiseType == "random")
             {
@@ -147,7 +154,7 @@ namespace AddNoise.Models
                 
                 for (int j = 0; j < pixelsForThisThread; j++)
                 {
-                    tempThread.xCoordinates[j] = random.Next(bitmap.Width);
+                    tempThread.xCoordinates[j] = random.Next(bitmapWidth);
                     tempThread.yCoordinates[j] = random.Next(bitmap.Height);                
                 }
     
@@ -187,7 +194,6 @@ namespace AddNoise.Models
         {
 
             Random random = new Random();
-            int width = bitmap.Width;
             int height = bitmap.Height;
 
             int values = xCoordinates.Length * 3;
@@ -207,22 +213,85 @@ namespace AddNoise.Models
             }
             
 
-            int[] dimensions = { data.Length, width, height };
+            int[] dimensions = { data.Length, bitmapWidth, height };
             randomNoiseAsm(pixelRGBs, data, dimensions, coordinatesArray);
-
-            //int counter = 0;
-            //int j = 0;
-            //foreach (var coords in listOfCoordinates)
-            //{
-            //    if (pixelRGBs[(coords.Value * width + coords.Key) * 3] != data[j * 3]) counter++;
-            //    if (pixelRGBs[(coords.Value * width + coords.Key) * 3 + 1] != data[j * 3 + 1]) counter++;
-            //    if (pixelRGBs[(coords.Value * width + coords.Key) * 3 + 2] != data[j * 3 + 2]) counter++;
-            //    j++;
-            //}
-            //Debug.WriteLine("Not changed: " + counter + "/" + listOfCoordinates.Count*3);
         }
 
+        public void addWhiteNoiseInAssembler(int[] xCoordinates, int[] yCoordinates, int noisePower)
+        {
+            Random random = new Random();
+            int baseLength = xCoordinates.Length;
+            int length = baseLength - baseLength % 4;
+            int index;
 
+            for (int j = 0; j < length; j+=4)
+            {
+                float[] u1u2 = new float[8];
+                for (int i = 0; i < u1u2.Length; i++)
+                {
+                    if (i < 4)
+                    {
+                        u1u2[i] = (float)Math.Log(1.0 - random.NextDouble());
+                    }
+                    else
+                    {
+                        u1u2[i] = (float)Math.Cos(2.0 * Math.PI * (1.0 - random.NextDouble()));
+                    }
+                }
+                float[] rgb = new float [12];
+                for (int k = 0; k <4; k++)
+                {
+                    index = (yCoordinates[j+k] * bitmapWidth + xCoordinates[j+k]) * 3;
+                    rgb[k] = pixelRGBs[index++];
+                    rgb[k+4] = pixelRGBs[index++];
+                    rgb[k+8] = pixelRGBs[index];
+                }
+
+                whiteNoiseAsm(u1u2, rgb, noisePower);
+                for (int k = 0; k < 4; k++)
+                {
+                    index = (yCoordinates[j + k] * bitmapWidth + xCoordinates[j + k]) * 3;
+                    pixelRGBs[index++] = (byte)Math.Max(0, Math.Min(255, rgb[k]));
+                    pixelRGBs[index++] = (byte)Math.Max(0, Math.Min(255, rgb[k+4]));
+                    pixelRGBs[index] = (byte)Math.Max(0, Math.Min(255, rgb[k+8]));
+                }
+                
+            }
+            int additionalLen = baseLength % 4;
+            if (additionalLen != 0)
+            {
+                float[] u1u2 = new float[(additionalLen) * 2];
+                for (int i = 0; i < u1u2.Length; i++)
+                {
+                    if (i < additionalLen)
+                    {
+                        u1u2[i] = (float)Math.Log(1.0 - random.NextDouble());
+                    }
+                    else
+                    {
+                        u1u2[i] = (float)Math.Cos(2.0 * Math.PI * (1.0 - random.NextDouble()));
+                    }
+                }
+                float[] rgb = new float[length*3];
+                for (int k = 0; k < additionalLen; k++)
+                {
+                    index  = (yCoordinates[length + k] * bitmapWidth + xCoordinates[length + k]) * 3;
+                    rgb[k] = pixelRGBs[index++];
+                    rgb[k + 4] = pixelRGBs[index++];
+                    rgb[k + 8] = pixelRGBs[index];
+                }
+
+                whiteNoiseAsm(u1u2, rgb, noisePower);
+                
+                for (int k = 0; k < additionalLen; k++)
+                {
+                    index = (yCoordinates[length+k] * bitmapWidth + xCoordinates[length+k]) * 3;
+                    pixelRGBs[index++] = (byte)Math.Max(0, Math.Min(255, rgb[k]));
+                    pixelRGBs[index++] = (byte)Math.Max(0, Math.Min(255, rgb[k + 4]));
+                    pixelRGBs[index] = (byte)Math.Max(0, Math.Min(255, rgb[k + 8]));
+                }
+            }
+        }
         private void PrintPixelValues(List<KeyValuePair<int, int>> listOfCoordinates)
         {
             int j = 0;

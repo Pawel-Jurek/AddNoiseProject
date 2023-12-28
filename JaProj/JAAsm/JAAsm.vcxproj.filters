@@ -3,6 +3,7 @@
   <ItemGroup>
     <MASM Include="randomNoise.asm" />
     <MASM Include="whiteNoise.asm" />
+    <MASM Include="testing.asm" />
   </ItemGroup>
   <ItemGroup>
     <None Include="JAAsm.def" />

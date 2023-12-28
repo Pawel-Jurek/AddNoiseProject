@@ -10,8 +10,8 @@
 using namespace System;
 using namespace System::Collections::Generic;
 
-extern "C" __declspec(dllexport) void add1(int* x) {
-    (*x)++;
+extern "C" __declspec(dllexport) void test(double* x) {
+    (*x) = log(*x);
 }
 
 std::random_device rd;
@@ -56,7 +56,7 @@ void addWhiteNoiseInCpp(int* xCoordinates, int* yCoordinates, int noisePower, un
         double u2 = 1.0 - static_cast<double>(rand()) / RAND_MAX;
         double z0 = sqrt(-2.0 * log(u1)) * cos(2.0 * M_PI * u2);
         
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++) 
         {
             double noise = noisePower * z0;
             int newValue = static_cast<int>(pixelRGBs[index + i] + noise);
