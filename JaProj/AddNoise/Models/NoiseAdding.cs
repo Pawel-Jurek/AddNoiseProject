@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Runtime.InteropServices;
 using System.Reflection;
+using System.Xml;
 
 namespace AddNoise.Models
 {
@@ -36,6 +37,7 @@ namespace AddNoise.Models
         public byte[] finalImage { get; private set; }
         public byte[] pixelRGBs { get; private set; }
         private int bitmapWidth;
+        private int bitmapHeight;
         private Bitmap bitmap;
         public NoiseAdding(string filename) 
         {
@@ -43,8 +45,9 @@ namespace AddNoise.Models
             finalImage = new byte[originalImage.Length];
             bitmap = new Bitmap(filename, true);
             bitmapWidth = bitmap.Width;
+            bitmapHeight = bitmap.Height;
 
-            pixelRGBs = new byte[bitmapWidth * bitmap.Height * 3];
+            pixelRGBs = new byte[bitmapWidth * bitmapHeight * 3];
             for (int x = 0; x < bitmapWidth; x++)
             {
                 for (int y = 0; y < bitmap.Height; y++)
@@ -92,7 +95,7 @@ namespace AddNoise.Models
                     switch (selectedNoise)
                     {                     
                         case "random":
-                            threads.Add(new Thread(() =>addRandomNoiseInCpp(pixelRGBs, bitmapWidth, bitmap.Height, thread.xCoordinates, thread.yCoordinates, coordinatesCount)));
+                            threads.Add(new Thread(() =>addRandomNoiseInCpp(pixelRGBs, bitmapWidth, bitmapHeight, thread.xCoordinates, thread.yCoordinates, coordinatesCount)));
                             break;
                         case "white":
                             threads.Add(new Thread(() => addWhiteNoiseInCpp(thread.xCoordinates, thread.yCoordinates, noisePower, pixelRGBs, bitmapWidth, coordinatesCount)));
@@ -108,7 +111,6 @@ namespace AddNoise.Models
 
             foreach (Thread thread in threads)
             {
-                Debug.WriteLine($"Wątek {thread.ManagedThreadId}");
                 thread.Start();
             }
             foreach (Thread thread in threads)
@@ -122,7 +124,6 @@ namespace AddNoise.Models
 
             savePixelRGBsToBitmap();
             saveBitmapToBitArray();
-            Debug.WriteLine("Obrazek przetworzony");
             return (int)elapsedMilliseconds;
 
         }
@@ -130,7 +131,7 @@ namespace AddNoise.Models
         {
             List<DivideThread> threads = new List<DivideThread>();
             Random random = new Random();
-            int totalPixels = bitmapWidth * bitmap.Height;
+            int totalPixels = bitmapWidth * bitmapHeight;
             int pixelsToNoise;  
             if (noiseType == "random")
             {
@@ -157,7 +158,7 @@ namespace AddNoise.Models
                 for (int j = 0; j < pixelsForThisThread; j++)
                 {
                     tempThread.xCoordinates[j] = random.Next(bitmapWidth);
-                    tempThread.yCoordinates[j] = random.Next(bitmap.Height);                
+                    tempThread.yCoordinates[j] = random.Next(bitmapHeight);                
                 }
     
                 threads.Add(tempThread);
@@ -167,11 +168,11 @@ namespace AddNoise.Models
         }
         private void savePixelRGBsToBitmap()
         {
-            for (int x = 0; x < bitmap.Width; x++)
+            for (int x = 0; x < bitmapWidth; x++)
             {
-                for (int y = 0; y < bitmap.Height; y++)
+                for (int y = 0; y < bitmapHeight; y++)
                 {
-                    int index = (y * bitmap.Width + x) * 3;
+                    int index = (y * bitmapWidth + x) * 3;
 
                     Color noisedImg = Color.FromArgb(pixelRGBs[index], pixelRGBs[index + 1], pixelRGBs[index + 2]);
                     bitmap.SetPixel(x, y, noisedImg);
@@ -195,7 +196,6 @@ namespace AddNoise.Models
         {
 
             Random random = new Random();
-            int height = bitmap.Height;
 
             int values = xCoordinates.Length * 3;
             byte[] data = new byte[values];
@@ -213,7 +213,7 @@ namespace AddNoise.Models
                 coordinatesArray[c++] = yCoordinates[i];
             }           
 
-            int[] dimensions = { data.Length, bitmapWidth, height };
+            int[] dimensions = { data.Length, bitmapWidth, bitmapHeight };
             randomNoiseAsm(pixelRGBs, data, dimensions, coordinatesArray);
         }
 
@@ -244,8 +244,8 @@ namespace AddNoise.Models
                 {
                     index = (yCoordinates[j + k] * bitmapWidth + xCoordinates[j + k]) * 3;
                     rgb[k] = pixelRGBs[index++];
-                    rgb[k + 4] = pixelRGBs[index++];
-                    rgb[k + 8] = pixelRGBs[index];
+                    rgb[k + quantity] = pixelRGBs[index++];
+                    rgb[k + quantity*2] = pixelRGBs[index];
                 }
 
                 whiteNoiseAsm(u1u2, rgb, noisePower);
@@ -253,8 +253,8 @@ namespace AddNoise.Models
                 {
                     index = (yCoordinates[j + k] * bitmapWidth + xCoordinates[j + k]) * 3;
                     pixelRGBs[index++] = (byte)Math.Max(0, Math.Min(255, rgb[k]));
-                    pixelRGBs[index++] = (byte)Math.Max(0, Math.Min(255, rgb[k + 4]));
-                    pixelRGBs[index] = (byte)Math.Max(0, Math.Min(255, rgb[k + 8]));
+                    pixelRGBs[index++] = (byte)Math.Max(0, Math.Min(255, rgb[k + quantity]));
+                    pixelRGBs[index] = (byte)Math.Max(0, Math.Min(255, rgb[k + quantity*2]));
                 }
                 j++;
             }
@@ -287,7 +287,6 @@ namespace AddNoise.Models
                 pixelRGBs[index] = (byte)Math.Max(0, Math.Min(255, rgb[0]));
                 pixelRGBs[index+1] = (byte)Math.Max(0, Math.Min(255, rgb[1]));
                 pixelRGBs[index+2] = (byte)Math.Max(0, Math.Min(255, rgb[2]));
-
 
             }
             

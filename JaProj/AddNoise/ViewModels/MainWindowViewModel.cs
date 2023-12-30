@@ -179,7 +179,6 @@ namespace AddNoise.ViewModels
                 if (wasOKButtonClicked == true)
                 {
                     fileName = dlg.FileName;
-                    Debug.WriteLine("Button clicked. Selected file: " + fileName);
                     noiseAdding = new NoiseAdding(fileName);
                     image = noiseAdding.originalImage;
 
@@ -220,8 +219,7 @@ namespace AddNoise.ViewModels
 
                 // Przejście do katalogu nadrzędnego projektu
                 DirectoryInfo parentDirectory = Directory.GetParent(projectDirectory);
-                string projectParentDirectory = parentDirectory?.Parent?.Parent?.Parent?.Parent?.FullName;
-
+                string projectParentDirectory = parentDirectory?.Parent?.Parent?.Parent?.Parent?.Parent?.FullName;
                 if (projectParentDirectory != null)
                 {
                     string outputDirectory = Path.Combine(projectParentDirectory, "outputs");
@@ -239,7 +237,7 @@ namespace AddNoise.ViewModels
                 }
                 else
                 {
-                    Console.WriteLine("Unable to access the parent directory of the project.");
+                    Debug.WriteLine("Unable to access the parent directory of the project.");
                 }
             });
 

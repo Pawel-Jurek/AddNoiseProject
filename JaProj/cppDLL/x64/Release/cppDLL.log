@@ -1,3 +1,8 @@
-﻿     Trwa tworzenie biblioteki C:\Users\pawel\source\repos\AddNoiseProject\JaProj\x64\Release\cppDLL.lib i obiektu C:\Users\pawel\source\repos\AddNoiseProject\JaProj\x64\Release\cppDLL.exp
+﻿  dllmain.cpp
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\cppDLL\dllmain.cpp(1): warning C4603: _USE_MATH_DEFINES: makro jest niezdefiniowane lub definicja różni się po użyciu prekompilowanego nagłówka
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\cppDLL\dllmain.cpp(1): message : Dodaj makro do prekompilowanego nagłówka, zamiast definiować go w tym miejscu
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\cppDLL\dllmain.cpp(2,1): message : użyj prekompilowanego nagłówka
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\cppDLL\dllmain.cpp(91,27): warning C4244: "inicjowanie": konwersja z "float" do "int", możliwa utrata danych
+     Trwa tworzenie biblioteki C:\Users\pawel\source\repos\AddNoiseProject\JaProj\x64\Release\cppDLL.lib i obiektu C:\Users\pawel\source\repos\AddNoiseProject\JaProj\x64\Release\cppDLL.exp
   LINK : określono opcję /LTCG, lecz generowanie kodu nie było wymagane; usuń opcję /LTCG z wiersza polecenia konsolidatora w celu podwyższenia wydajności konsolidatora
   cppDLL.vcxproj -> C:\Users\pawel\source\repos\AddNoiseProject\JaProj\x64\Release\cppDLL.dll
