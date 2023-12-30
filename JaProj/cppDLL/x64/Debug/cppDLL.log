@@ -2,6 +2,7 @@
 C:\Users\pawel\source\repos\AddNoiseProject\JaProj\cppDLL\dllmain.cpp(1): warning C4603: _USE_MATH_DEFINES: makro jest niezdefiniowane lub definicja różni się po użyciu prekompilowanego nagłówka
 C:\Users\pawel\source\repos\AddNoiseProject\JaProj\cppDLL\dllmain.cpp(1): message : Dodaj makro do prekompilowanego nagłówka, zamiast definiować go w tym miejscu
 C:\Users\pawel\source\repos\AddNoiseProject\JaProj\cppDLL\dllmain.cpp(2,1): message : użyj prekompilowanego nagłówka
+C:\Users\pawel\source\repos\AddNoiseProject\JaProj\cppDLL\dllmain.cpp(91,27): warning C4244: "inicjowanie": konwersja z "float" do "int", możliwa utrata danych
 LINK : warning LNK4044: nierozpoznana opcja „/Zc:twoPhase-”; zignorowano
   dllmain.obj : napotkano moduł MSIL; konsolidowanie przyrostowe jest wyłączone dla modułów MSIL; zostanie wykonana pełna konsolidacja
 LINK : warning LNK4044: nierozpoznana opcja "/Zc:twoPhase-"; zignorowano

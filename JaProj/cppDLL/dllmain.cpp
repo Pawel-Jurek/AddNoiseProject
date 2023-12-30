@@ -69,13 +69,9 @@ void addWhiteNoiseInCpp(int* xCoordinates, int* yCoordinates, int noisePower, un
 
 
 extern "C" __declspec(dllexport)
-void addColorNoiseInCpp(int* xCoordinates, int* yCoordinates, int noisePower, unsigned char* pixelRGBs, int bitmapWidth, int length)
+void addColorNoiseInCpp(int* xCoordinates, int* yCoordinates, int noisePower, unsigned char* pixelRGBs, int bitmapWidth, int length, float* colorMask)
 {
     srand(static_cast<unsigned int>(time(nullptr)));
-
-    int baseRed = distribution(gen);
-    int baseGreen = distribution(gen);
-    int baseBlue = distribution(gen);
 
     for (int j = 0; j < length; j++)
     {
@@ -92,15 +88,10 @@ void addColorNoiseInCpp(int* xCoordinates, int* yCoordinates, int noisePower, un
         for (int i = 0; i < 3; i++)
         {
             double noise = noisePower * z[i];
-            int baseColor = 0;
-
-            if (i == 0) baseColor = baseRed;
-            else if (i == 1) baseColor = baseGreen;
-            else if (i == 2) baseColor = baseBlue;
-
+            int baseColor = colorMask[i];
             int newValue = static_cast<int>(baseColor + noise);
 
-            newValue = (newValue + 256) % 256;
+            newValue = Math::Max(0, Math::Min(255, newValue));
 
             pixelRGBs[index + i] = static_cast<unsigned char>(newValue);
         }

@@ -277,8 +277,8 @@ namespace AddNoise.ViewModels
                 isButtonEnabled = false;
                 string option = selectedColorNoise ? "color" : selectedRandomNoise ? "random" : "white";
                 noiseAdding = new NoiseAdding(fileName);
-                await Task.Run(() => noiseAdding.addNoiseToImage(true, option, 1, noisePower));
-                await Task.Delay(1000);
+                int timeToWait = await Task.Run(() => noiseAdding.addNoiseToImage(true, option, 1, noisePower)) * 2;
+                await Task.Delay(timeToWait);
                 await Task.Run(() => noiseAdding.addNoiseToImage(false, option, 1, noisePower));
 
                 List<TestResult> testResults = new List<TestResult>();
@@ -288,13 +288,18 @@ namespace AddNoise.ViewModels
                     {
                         foreach (bool isAsm in usingAsmLib)
                         {
-
-                            int milisecondsEstimated = await Task.Run(() => noiseAdding.addNoiseToImage(isAsm, option, threadsNumber, noisePower));
+                            int milisecondsEstimated = 0;
+                            for (int ctr = 0; ctr < 5; ctr++)
+                            {
+                                milisecondsEstimated += await Task.Run(() => noiseAdding.addNoiseToImage(isAsm, option, threadsNumber, noisePower));
+                                await Task.Delay(timeToWait);
+                            }
+                            
 
                             testResults.Add(new TestResult()
                             {
                                 isAssemblerLibraryActive = isAsm,
-                                miliseconds = milisecondsEstimated,
+                                miliseconds = milisecondsEstimated/5,
                                 threadCount = threadCountUsed
                             });
                         }

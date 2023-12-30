@@ -13,11 +13,10 @@ whiteNoiseAsm PROC
     sqrtps xmm1, xmm1
 
     movups xmm0, [rcx + 16]     ; wczytanie u2
-
-    mulps xmm1, xmm0            ; mnozenie u1*u2 = z
+    mulps xmm1, xmm0            ; z = u1*u2
     
-    cvtsi2ss xmm0, r8           ; r8 - noisePower
-    mulps xmm1, xmm0            ; z = z * noisePower
+    cvtsi2ss xmm0, r8           ; noisePower
+    mulps xmm1, xmm0            ; z*=noisePower
 
     movups xmm2, [rdx]          ; wczytanie r
     movups xmm3, [rdx + 16]     ; wczytanie g
@@ -30,7 +29,6 @@ whiteNoiseAsm PROC
     movups [rdx], xmm2          
     movups [rdx + 16], xmm3          
     movups [rdx + 32], xmm4         
-
     ret
 
 whiteNoiseAsm ENDP 
