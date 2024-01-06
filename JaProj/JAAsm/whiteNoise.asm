@@ -1,5 +1,8 @@
 .data
     negative_two dd -2.0
+    maxes dd 255.0, 255.0, 255.0
+    mins dd 0.0, 0.0, 0.0
+
 
 .code 
 whiteNoiseAsm PROC
@@ -25,6 +28,19 @@ whiteNoiseAsm PROC
     addps xmm2, xmm1            ; r = r + z
     addps xmm3, xmm1            ; g = g + z
     addps xmm4, xmm1            ; b = b + z
+
+    ; ustawianie zakresu 0-255
+
+    movups xmm0, [maxes]        
+    minps xmm2, xmm0
+    minps xmm3, xmm0
+    minps xmm4, xmm0
+
+    movups xmm0, [mins]
+    maxps xmm2, xmm0
+    maxps xmm3, xmm0
+    maxps xmm4, xmm0
+
 
     movups [rdx], xmm2          
     movups [rdx + 16], xmm3          

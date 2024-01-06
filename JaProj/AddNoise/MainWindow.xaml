@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="670" Width="700"
         d:DataContext="{d:DesignInstance local1:MainWindowViewModel, IsDesignTimeCreatable=True}">
-    <Grid ShowGridLines="True" VerticalAlignment="Top" Height="564">
+    <Grid VerticalAlignment="Top" Height="564">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"></ColumnDefinition>
             <ColumnDefinition Width="2*"></ColumnDefinition>

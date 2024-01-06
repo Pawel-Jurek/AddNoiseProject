@@ -135,7 +135,6 @@ namespace AddNoise.Models
             int pixelsToNoise;  
             if (noiseType == "random")
             {
-                //pixelsToNoise = 1000;
                 pixelsToNoise = (int)(0.01 * (random.Next(5,70)) * totalPixels);
             }
             else
@@ -252,9 +251,9 @@ namespace AddNoise.Models
                 for (int k = 0; k < quantity; k++)
                 {
                     index = (yCoordinates[j + k] * bitmapWidth + xCoordinates[j + k]) * 3;
-                    pixelRGBs[index++] = (byte)Math.Max(0, Math.Min(255, rgb[k]));
-                    pixelRGBs[index++] = (byte)Math.Max(0, Math.Min(255, rgb[k + quantity]));
-                    pixelRGBs[index] = (byte)Math.Max(0, Math.Min(255, rgb[k + quantity*2]));
+                    pixelRGBs[index++] = (byte)rgb[k];
+                    pixelRGBs[index++] = (byte)rgb[k + quantity];
+                    pixelRGBs[index] = (byte)rgb[k + quantity*2];
                 }
                 j++;
             }
@@ -284,9 +283,9 @@ namespace AddNoise.Models
 
                 colorNoiseAsm(u1u2, rgb, colorMask, noisePower);
                 
-                pixelRGBs[index] = (byte)Math.Max(0, Math.Min(255, rgb[0]));
-                pixelRGBs[index+1] = (byte)Math.Max(0, Math.Min(255, rgb[1]));
-                pixelRGBs[index+2] = (byte)Math.Max(0, Math.Min(255, rgb[2]));
+                pixelRGBs[index] = (byte)rgb[0];
+                pixelRGBs[index+1] = (byte)rgb[1];
+                pixelRGBs[index+2] = (byte)rgb[2];
 
             }
             
