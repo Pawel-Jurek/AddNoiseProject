@@ -1,7 +1,7 @@
 .data
     negative_two dd -2.0
-    maxes dd 255.0, 255.0, 255.0
-    mins dd 0.0, 0.0, 0.0
+    maxes dd 255.0, 255.0, 255.0, 255.0
+    mins dd 0.0, 0.0, 0.0, 0.0
 
 
 .code 
